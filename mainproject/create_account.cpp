@@ -34,6 +34,7 @@ void create_account::on_pushButton_clicked()
     fwrite(&information, sizeof(information), 1, Information);
 
     fclose(Information);
+    QMessageBox::information(this,"SIGN UP STATUS","<FONT COLOR='#00da69'> You Have Successfully Logged :)</FONT>");
     maingame = new main_game();
     hide();
     maingame->show();
