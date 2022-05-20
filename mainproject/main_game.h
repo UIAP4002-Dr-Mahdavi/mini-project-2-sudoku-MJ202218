@@ -21,6 +21,8 @@ private slots:
 
 
     void on_tableWidget_cellChanged(int row, int column);
+    void on_pushButton_clicked();
+
 public slots:
     void myfunction();
 private:

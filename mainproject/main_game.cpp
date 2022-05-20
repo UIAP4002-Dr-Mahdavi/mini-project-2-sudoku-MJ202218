@@ -6,6 +6,7 @@
 #include <QtDebug>
 #include <QDateTime>
 FILE *info;
+int score=0;
 class userpass{
 public:
     QString name;
@@ -371,15 +372,20 @@ void main_game::on_tableWidget_cellChanged(int row, int column)
     if (ckeck_row_t == true || check_column_t == true || check_square == true){
         cells[row][column] =  ui->tableWidget->item(row,column)->text();
         ui->lineEdit->setText(" GUIDE : You Can't Choose This Number :(");
+        ui->tableWidget->item(row,column)->setBackgroundColor(QColor(225,26,0));
         ckeck_row_t = check.check_row(row,column);
         check_column_t = check.check_column(row , column);
         check_square =check.check_square(row,column);
 
 
     }
-    else ui->lineEdit->setText(" GUIDE");
+    else
+    {
+        ui->tableWidget->item(row,column)->setBackgroundColor(QColor(85,255,0));
+        ui->lineEdit->setText(" GUIDE");
+        score++;
 
-
+    }
 }
 
 void main_game::myfunction()
@@ -405,6 +411,21 @@ void main_game::myfunction()
 
 
 
+
+
+
+
+
+void main_game::on_pushButton_clicked()
+{
+    fopen_s(&info, "Information.dat", "ab");
+
+    fwrite(&score, sizeof(int), 1, info);
+
+    fclose(info);
+
+
+}
 
 
 
