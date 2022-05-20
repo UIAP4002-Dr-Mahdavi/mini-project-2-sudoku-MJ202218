@@ -167,6 +167,96 @@ public:
 };
 Check check;
 
+class random_num{
+public:
+    int n1 = 0, n2 = 0 , row = 0,column = 0;
+
+    int rand1(){
+        srand(time(0));
+        int number = rand()%5 + 1;
+        return number;
+    }
+
+    void rand2(){
+        int howmany = 0 ;
+        bool random_check;
+        bool square_33 = true;
+        srand(time(0));
+
+     howmany = rand1();
+
+     int *check_repeat_row = new int [howmany];
+     int *check_repeat_column = new int [howmany];
+     for (int j =0 ;j<howmany;j++){
+         check_repeat_row[j]=-1;
+         check_repeat_column[j]=-1;
+     }
+     for (int i=0;i<howmany;i++){
+         do {
+             square_33 = true;
+             while (square_33){
+             row = rand()%9;
+             column = rand1()%9;
+             if (row /3 == n1 && column / 3 == n2){
+                 square_33 = false;
+                 n2++;
+                 if (n2 == 3){
+                     n1 ++;
+                     n2 == 0;
+                 }
+             }
+             }
+             random_check = false;
+             for (int j =0 ; j<howmany ; j++){
+
+                 if (row == check_repeat_row[j] && column == check_repeat_column[j] ){
+
+                     random_check = true;
+                 }
+             }
+
+         }
+         while (random_check);
+         for (int z = 0 ; z<howmany; z++){
+             if(check_repeat_row[z] == -1){
+                 check_repeat_row [z]= row;
+                 break;
+             }
+
+         }
+         for (int z = 0 ; z<howmany; z++){
+             if(check_repeat_column[z] == -1){
+                 check_repeat_column [z]= column;
+                 break;
+             }
+
+         }
+         rand3 ();
+
+     }
+    delete []check_repeat_row;
+     delete []check_repeat_column;
+    }
+
+    int rand3 (){
+        srand(time(0));
+        int number_of_cells;
+        bool ch_row = true;
+        bool ch_column  = true;
+        bool ch_square33 = true;
+        while (ch_row == true || ch_column == true || ch_square33 == true){
+
+         number_of_cells= rand1()% 9 +1;
+         QString s = QString::number(number_of_cells);
+         cells[row][column] = s;
+          ch_row =check.check_row(row , column);
+          ch_column = check.check_column(row , column);
+          ch_square33 = check.check_square(row , column);
+        }
+       return -1 ;
+    }
+
+};
 main_game::main_game(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::main_game)
@@ -174,6 +264,21 @@ main_game::main_game(QWidget *parent) :
 
 
     ui->setupUi(this);
+    for (int i = 0; i < 9; i++){
+        for (int j = 0; j < 9; j++){
+            cells [i][j]="-1" ;
+        }
+
+    }
+    random_num random_rand;
+    random_rand.rand2();
+    for (int ij=0;ij<9;ij++){
+        for (int ji =0;ji<9 ;ji++){
+            if (cells[ij][ji] != "-1"){
+              ui->tableWidget->item(ij,ji)->setText(cells[ij][ji]);
+            }
+        }
+    }
     ui->lineEdit->setText(" GUIDE");
    timer = new QTimer(this);
    connect(timer,SIGNAL(timeout()),this,SLOT(myfunction()));
@@ -201,12 +306,7 @@ main_game::main_game(QWidget *parent) :
     fseek(info,(number_of_players-1)*sizeof(userpass),-SEEK_SET);
     fread(&information, sizeof(userpass), 1, info);
     fclose(info);
-    for (int i = 0; i < 9; i++){
-        for (int j = 0; j < 9; j++){
-            cells [i][j]="-1" ;
-        }
 
-    }
 
 }
 
