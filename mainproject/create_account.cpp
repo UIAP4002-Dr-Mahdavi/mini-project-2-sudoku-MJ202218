@@ -4,7 +4,6 @@
 #include <iostream>
 #include <QFile>
 #include <QTextStream>
-#include <iostream>
 #include <fstream>
 
 FILE *shomaresh_d;
@@ -45,7 +44,7 @@ void create_account::on_pushButton_clicked()
     int number_of_players = 0;
     fopen_s(&shomaresh_d, "shomaresh.txt", "ab");
     fclose(shomaresh_d);
-    fopen_s(&shomaresh_d, "shomaresh.txt", "ab");
+    fopen_s(&shomaresh_d, "shomaresh.txt", "rb");
     if (!shomaresh_d)exit(0);
     fread(&number_of_players,sizeof(int),1,shomaresh_d);
     fclose(shomaresh_d);

@@ -9,6 +9,9 @@
 #include <QTextStream>
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <QMessageBox>
+
 
 FILE *info ;
 using namespace std ;
@@ -396,12 +399,13 @@ void main_game::myfunction()
 
 void main_game::on_pushButton_clicked()
 {
-	ofstream file("file.txt" , ios ::out | ios :: app ) ;
+    ofstream file("score.txt" , ios ::out | ios :: app ) ;
 	int score12;
     score12 = check.score();
 	if ( file.is_open())
     {
-		//string name = score12.toStdString();
+//        QString s = QString::number(score12);
+//        string score_string = s.toStdString();
         file << score12<<endl;
 	}
     file.close();
