@@ -31,6 +31,7 @@ public:
         for (int i = 0;i<9;i++){
             for (int j =0 ; j<9 ; j++){
                 if (cells[i][j] != "-1"){
+                    if (cells[i][j] == "1" || cells[i][j] == "2" ||cells[i][j] == "3" || cells[i][j] == "4" || cells[i][j] == "5" ||cells[i][j] == "6" || cells[i][j] == "7" || cells[i][j] == "8" ||cells[i][j] == "9")
                     score1 ++;
                 }
             }
@@ -325,16 +326,7 @@ main_game::main_game(QWidget *parent) :
     cells[5][8] ="6";
     cells[7][8] ="5";
     cells[8][8] ="9";
-    //random_num random_rand;
-    //random_rand.rand2();
-    /**for (int ij=0;ij<9;ij++){
-        for (int ji =0;ji<9 ;ji++){
-            if (cells[ij][ji] != "-1"){
-                ui->lineEdit->setText(cells[ij][ji]);
 
-            }
-        }
-    }**/
     ui->lineEdit->setText(" GUIDE");
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(myfunction()));
@@ -345,9 +337,6 @@ main_game::main_game(QWidget *parent) :
 
 
 }
-
-//class check the table
-// tekrari = return true no tekrari = return false
 
 
 
