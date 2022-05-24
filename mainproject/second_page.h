@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <create_account.h>
+#include <score_page.h>
 
 namespace Ui {
 class second_page;
@@ -26,6 +27,7 @@ private slots:
 private:
     Ui::second_page *ui;
     create_account * creataccount;
+    score_page *score;
 };
 
 #endif // SECOND_PAGE_H

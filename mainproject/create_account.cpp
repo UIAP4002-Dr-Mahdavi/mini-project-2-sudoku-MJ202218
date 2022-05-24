@@ -1,9 +1,15 @@
-#include "create_account.h"
+﻿#include "create_account.h"
 #include "ui_create_account.h"
 #include <QMessageBox>
 #include <iostream>
-FILE *Information;
+#include <QFile>
+#include <QTextStream>
+#include <iostream>
+#include <fstream>
 
+FILE *shomaresh_d;
+
+using namespace std ;
 create_account::create_account(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::create_account)
@@ -27,13 +33,40 @@ void create_account::on_pushButton_clicked()
     information.name = ui->lineEdit->text();
     information.username =ui->lineEdit_2->text();
     information.password = ui ->lineEdit_3->text();
+    QString nameplayer;
+    nameplayer = information.name;
+	ofstream file("file.txt" , ios :: out | ios :: app ) ;
+    if ( file.is_open())
+    {
+        string name = information.name.toStdString();
+        file << name <<endl;
+    }
+    file.close();
+    int number_of_players = 0;
+    fopen_s(&shomaresh_d, "shomaresh.txt", "ab");
+    fclose(shomaresh_d);
+    fopen_s(&shomaresh_d, "shomaresh.txt", "ab");
+    if (!shomaresh_d)exit(0);
+    fread(&number_of_players,sizeof(int),1,shomaresh_d);
+    fclose(shomaresh_d);
+    number_of_players++;
+    fopen_s(&shomaresh_d, "shomaresh.txt", "r+b");
 
+        if (!shomaresh_d) {
+
+            exit(0);
+        }
+
+        fwrite(&number_of_players, sizeof(int), 1, shomaresh_d);
+
+        fclose(shomaresh_d);
     //write new members in file
-    fopen_s(&Information, "Information.dat", "ab");
+//    fopen_s(&Information, "Information.txt", "a");
 
-    fwrite(&information, sizeof(information), 1, Information);
+//    fwrite(&information.name, sizeof(QString), 1, Information);
 
-    fclose(Information);
+//    fclose(Information);
+
     QMessageBox::information(this,"SIGN UP STATUS","<FONT COLOR='#00da69'> You Have Successfully Logged :)</FONT>");
     maingame = new main_game();
     hide();

@@ -1,15 +1,20 @@
-#include "main_game.h"
+﻿#include "main_game.h"
 #include "ui_main_game.h"
 #include <iostream>
 #include <QMessageBox>
 #include <QString>
 #include <QtDebug>
 #include <QDateTime>
-FILE *info;
-int score=0;
+#include <QFile>
+#include <QTextStream>
+#include <iostream>
+#include <fstream>
+
+FILE *info ;
+using namespace std ;
 class userpass{
 public:
-    QString name;
+    char name [100];
     QString username;
     QString password;
 
@@ -18,6 +23,17 @@ public:
 QString cells[9][9];
 class Check{
 public:
+    int score (){
+        int score1 = 0;
+        for (int i = 0;i<9;i++){
+            for (int j =0 ; j<9 ; j++){
+                if (cells[i][j] != "-1"){
+                    score1 ++;
+                }
+            }
+        }
+        return score1 - 30;
+    }
     // return false if find repeatation, if not return true
     bool check_row(int row,int column)
     {
@@ -322,27 +338,7 @@ main_game::main_game(QWidget *parent) :
     timer->start(1000);
     userpass information;
     int number_of_players = 0;
-    fopen_s(&info, "Information.dat", "rb");
 
-    if (!info) {
-        exit(0);
-
-    }
-
-    fread(&information, sizeof(userpass), 1, info);
-    while (!feof(info)) {
-
-        number_of_players ++ ;
-        fread(&information, sizeof(userpass), 1, info);
-
-
-    }
-    fclose(info);
-    QString s =QString::number(number_of_players);
-    fopen_s(&info, "Information.dat", "a+b");
-    fseek(info,(number_of_players-1)*sizeof(userpass),-SEEK_SET);
-    fread(&information, sizeof(userpass), 1, info);
-    fclose(info);
 
 
 }
@@ -383,7 +379,6 @@ void main_game::on_tableWidget_cellChanged(int row, int column)
     {
         ui->tableWidget->item(row,column)->setBackgroundColor(QColor(85,255,0));
         ui->lineEdit->setText(" GUIDE");
-        score++;
 
     }
 }
@@ -399,31 +394,25 @@ void main_game::myfunction()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void main_game::on_pushButton_clicked()
 {
-    fopen_s(&info, "Information.dat", "ab");
+	ofstream file("file.txt" , ios ::out | ios :: app ) ;
+	int score12;
+    score12 = check.score();
+	if ( file.is_open())
+    {
+		//string name = score12.toStdString();
+        file << score12<<endl;
+	}
+    file.close();
+//    fopen_s(&info, "Information.txt", "a");
 
-    fwrite(&score, sizeof(int), 1, info);
+//    fwrite(&score12, sizeof(int), 1, info);
 
-    fclose(info);
-
+//    fclose(info);
+    hide();
+    score1 = new score_page();
+    score1->show();
 
 }
 

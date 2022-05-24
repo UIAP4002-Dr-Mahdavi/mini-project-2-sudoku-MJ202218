@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <main_game.h>
+#include <score_page.h>
+#include <pass_file.h>
 namespace Ui {
 class create_account;
 }

@@ -21,7 +21,9 @@ void second_page::on_pushButton_clicked()
 
 void second_page::on_pushButton_2_clicked()
 {
-
+  score = new score_page();
+  hide();
+  score->show();
 }
 
 void second_page::on_pushButton_3_clicked()

@@ -3,7 +3,8 @@
 
 #include <QDialog>
 #include <QTimer>
-
+#include <score_page.h>
+#include <pass_file.h>
 namespace Ui {
 class main_game;
 }
@@ -28,6 +29,7 @@ public slots:
 private:
     Ui::main_game *ui;
     QTimer* timer;
+    score_page *score1;
 };
 
 #endif // MAIN_GAME_H

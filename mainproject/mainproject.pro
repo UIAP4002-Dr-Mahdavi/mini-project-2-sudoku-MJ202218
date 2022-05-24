@@ -20,18 +20,23 @@ SOURCES += \
     main.cpp \
     main_game.cpp \
     mainwindow.cpp \
+    pass_file.cpp \
+    score_page.cpp \
     second_page.cpp
 
 HEADERS += \
     create_account.h \
     main_game.h \
     mainwindow.h \
+    pass_file.h \
+    score_page.h \
     second_page.h
 
 FORMS += \
     create_account.ui \
     main_game.ui \
     mainwindow.ui \
+    score_page.ui \
     second_page.ui
 
 # Default rules for deployment.
