@@ -117,3 +117,8 @@ score_page::~score_page()
 {
     delete ui;
 }
+
+void score_page::on_pushButton_clicked()
+{
+    exit(0);
+}

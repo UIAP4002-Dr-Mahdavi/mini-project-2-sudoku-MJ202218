@@ -15,6 +15,9 @@ public:
     explicit score_page(QWidget *parent = nullptr);
     ~score_page();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::score_page *ui;
 };
