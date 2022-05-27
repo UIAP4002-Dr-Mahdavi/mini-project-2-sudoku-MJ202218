@@ -1,4 +1,4 @@
-﻿#include "main_game.h"
+﻿ #include "main_game.h"
 #include "ui_main_game.h"
 #include <iostream>
 #include <QMessageBox>
@@ -24,13 +24,14 @@ public:
 };
 
 QString cells[9][9];
+bool cells_check [9][9];
 class Check{
 public:
     int score (){
         int score1 = 0;
         for (int i = 0;i<9;i++){
             for (int j =0 ; j<9 ; j++){
-                if (cells[i][j] != "-1"){
+                if (cells[i][j] != "-1" && cells[i][j] > "0" && cells_check[i][j]==true){
                     if (cells[i][j] == "1" || cells[i][j] == "2" ||cells[i][j] == "3" || cells[i][j] == "4" || cells[i][j] == "5" ||cells[i][j] == "6" || cells[i][j] == "7" || cells[i][j] == "8" ||cells[i][j] == "9")
                     score1 ++;
                 }
@@ -326,6 +327,37 @@ main_game::main_game(QWidget *parent) :
     cells[5][8] ="6";
     cells[7][8] ="5";
     cells[8][8] ="9";
+    //bool check
+    cells_check[0][0] =true;
+    cells_check[1][0] =true;
+    cells_check[3][0] =true;
+    cells_check[4][0] =true;
+    cells_check[5][0] =true;
+    cells_check[0][1] =true;
+    cells_check[2][1] =true;
+    cells_check[6][1] =true;
+    cells_check[2][2] =true;
+    cells_check[1][3] =true;
+    cells_check[4][3] =true;
+    cells_check[7][3] =true;
+    cells_check[0][4] =true;
+    cells_check[1][4] =true;
+    cells_check[3][4] =true;
+    cells_check[5][4] =true;
+    cells_check[7][4] =true;
+    cells_check[8][4] =true;
+    cells_check[1][5] =true;
+    cells_check[4][5] =true;
+    cells_check[7][5] =true;
+    cells_check[6][6] =true;
+    cells_check[2][7] =true;
+    cells_check[6][7] =true;
+    cells_check[8][7] =true;
+    cells_check[3][8] =true;
+    cells_check[4][8] =true;
+    cells_check[5][8] =true;
+    cells_check[7][8] =true;
+    cells_check[8][8] =true;
 
     ui->lineEdit->setText(" GUIDE");
     timer = new QTimer(this);
@@ -360,6 +392,7 @@ void main_game::on_tableWidget_cellChanged(int row, int column)
     if (ckeck_row_t == true || check_column_t == true || check_square == true){
         cells[row][column] =  ui->tableWidget->item(row,column)->text();
         ui->lineEdit->setText(" GUIDE : You Can't Choose This Number :(");
+        cells_check[row][column]= false;
         ui->tableWidget->item(row,column)->setBackgroundColor(QColor(225,26,0));
         ckeck_row_t = check.check_row(row,column);
         check_column_t = check.check_column(row , column);
@@ -368,7 +401,7 @@ void main_game::on_tableWidget_cellChanged(int row, int column)
 
     }
     else
-    {
+    {   cells_check[row][column] = true;
         ui->tableWidget->item(row,column)->setBackgroundColor(QColor(85,255,0));
         ui->lineEdit->setText(" GUIDE");
 
