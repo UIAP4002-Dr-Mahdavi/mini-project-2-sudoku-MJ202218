@@ -389,7 +389,8 @@ void main_game::on_tableWidget_cellChanged(int row, int column)
     ckeck_row_t = check.check_row(row,column);
     check_column_t = check.check_column(row , column);
     check_square =check.check_square(row,column);
-    if (ckeck_row_t == true || check_column_t == true || check_square == true){
+    int convert_to_int = cells[row][column].toInt();
+    if (ckeck_row_t == true || check_column_t == true || check_square == true || cells[row][column] < "1" || convert_to_int > 9){
         cells[row][column] =  ui->tableWidget->item(row,column)->text();
         ui->lineEdit->setText(" GUIDE : You Can't Choose This Number :(");
         cells_check[row][column]= false;
